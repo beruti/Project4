@@ -2,7 +2,8 @@ var mongoose =  require('mongoose')
 
 var patientSchema = mongoose.Schema({
 
-	name: String,
+	firstName: String,
+	lastName: String,
 	//age: Number,
 	// will need to add logic to keep updating their age
 	// current data, age - deduce dob 

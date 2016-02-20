@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	  <meta charset="utf-8">
+	  <title> Sign Up New User</title>
+	  <!-- include jquery -->
+	  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	  <!-- include bootstrap -->
+	  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	  <!-- include bootstrap -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.4/css/bootstrap-select.min.css">
+	  <!-- include bootstrap -->
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.9.4/js/bootstrap-select.min.js"></script>
+	  <!-- include bootstrap -->
+	  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	  <!-- link to javascript -->
+	  <script type="text/javascript" src="/js/app.js"></script>
+	  <!-- link to css -->
+	  <link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+
+
+<section id="signupsection">
+<!-- give title -->
+<h2>Sign Up</h2>
+	<!-- create form -->
+	<!-- need equivalent route -->
+	<!-- specify http method of post to database -->
+  <form class="signup form-inline" id="signup" method="post" action="/signup">
+    <input type="text" maxlength= "20" name='username' id="username" class="form-control" placeholder="Username">
+    <input type="text" name='firstName' id="firstName" class="form-control" placeholder="First Name">
+    <input type="text" name='lastName' id="lastName" class="form-control" placeholder="Last Name">
+   <!-- <input type="email" name='email' id="email" class="form-control" placeholder="Email">
+    <input type="password" name='password' id="password" class="form-control" placeholder="Password"> -->      
+    <input type="submit" value='Sign Up' id="submit" class="btn btn-default">
+  </form>
+</section>  
+
+
+</body>
+</html>
