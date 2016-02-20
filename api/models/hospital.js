@@ -10,8 +10,6 @@ var hospitalSchema = mongoose.Schema({
 	name: String
 	//
 	location: String
-	lat 
-	long
 })
 
 // instantiate Hospital object and pass it hospital model schema 
