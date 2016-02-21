@@ -49,9 +49,33 @@ SO
 can load static page
 BUT will need ajax request to make a post to ther server - will then have to get/set and remove token etc with sign up in app.js in js on front-end folder
 
+DECISION MADE - NO DISPATCHER
+- TICKET WILL GO STRAIGHT TO AMBULANCE
+- DISPATCH WILL BE BUILT ON COMPLETION
+
+- POINT OF APP IS TO USE SOCKETS and Google Maps NOT a booking system
+
+WHATS NEXT
+When they login they should be taken to a new page
+Get it so they can add all relevant info
+Show Log Out - make sure it removes token
+Get CRUD Actions working for user
 
 
+Cannot get log in to work
+- what are the first steps going on when the form is on the page and you have hit the submit
+- it is on the front end and so it is trying to communicate with the backend 
+- surely it should be a get request as they want to compare what is being submitted with the pre-existing BUT in order to compare info must first be submitted so it is indeed a POST request
+- so check that a post request is being made via AJAX
+- for a start is the targeting correct
+- the login form should have an id of "login-form"
+THIS fixed it
 
+BUT now it is not routing correctly as I want it to head to elsewhere - specifically patient/landingpage
+cannot reach there using location.href for somereason
+check with a console log it is even hitting this area of the code or skipping entirely
+
+NOW have redirect working
 
 - ticketing form
 

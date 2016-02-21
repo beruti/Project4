@@ -14,3 +14,15 @@ h1{
 	margin: 40px auto;
 
 }
+
+#emergencybutton{
+	margin: 0 auto;
+	height: 200px;
+	width: 200px;
+}
+
+#editpatientbutton{
+	margin: 0 auto;
+	height: 200px;
+	width: 200px;
+}

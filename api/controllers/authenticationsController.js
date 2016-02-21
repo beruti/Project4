@@ -105,7 +105,7 @@ function register(req, res, next) {
 
 
 function login(req, res, next) {
-  //console.log(User)
+  console.log("hey man im trying to login here")
   User.findOne({
     "email": req.body.email
   }, function(err, user) {

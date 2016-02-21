@@ -39,7 +39,22 @@
   </form>
 </section>  
 
-<h5 id="current_user_email"> </h5>
+<!-- <h5 id="current_user_email"> </h5> -->
+
+<section id="login">
+  <h2>Login</h2>
+  <form id="login-form" class="login" method="post" action="/login">
+    <div class="form-group">
+      <label for="login-email">Email address</label>
+      <input type="email" name="email" id="login-email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <label for="login-password">Password</label>
+      <input type="password" name="password" id="login-password" class="form-control"  placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</section>
 
 </body>
 </html>

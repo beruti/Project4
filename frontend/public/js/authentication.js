@@ -120,7 +120,9 @@ function authenticationSuccessful(data) {
   if (data.token) setToken(data.token);
   checkLoginState();
   // on client side redirect when user authenticated ie logged in!
-  window.location.href = "/"
+  // console.log("trying to redirect now") // gives NOTHING
+  // redirects to href though
+  window.location.href = "./patient/landingpage.html"
 }
 
 function setToken(token) {
