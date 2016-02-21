@@ -15,5 +15,21 @@
   "bugs": {
     "url": "https://github.com/beruti/Project4/issues"
   },
-  "homepage": "https://github.com/beruti/Project4#readme"
+  "homepage": "https://github.com/beruti/Project4#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
+    "cookie-parser": "^1.4.1",
+    "cors": "^2.7.1",
+    "express": "^4.13.4",
+    "express-jwt": "^3.3.0",
+    "jsonwebtoken": "^5.7.0",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.4",
+    "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7"
+  }
 }

@@ -1,41 +1,18 @@
 var express  = require('express');
 var router   = express.Router();
-//var passport = require("passport");
+var passport = require("passport");
 
 //require controllers
 var usersController = require('../controllers/usersController');
 //var postsController = require('../controllers/postsController');
-
+var authenticationsController = require('../controllers/authenticationsController');
 //authentication routes
-router.post('/signin', usersController.signin);
-router.post('/signup', usersController.signup);
+router.post('/login', authenticationsController.login);
+router.post('/register', authenticationsController.register);
 
-// //user and post routes
+// patient routes
 router.route('/')
-	.get(patientsController.patientSignUp) 
-// 	.get(postsController.postsIndex)
-// 	.post(postsController.addPost);
+	.get(usersController.userSignUpForm) 
 
-// router.route('/:postid')
-// 	.patch(postsController.updatePost)
-// 	.delete(postsController.deletePost)
-// 	.get(postsController.showPost);
-
-// router.route('/profile/:userid')
-// 	.get(usersController.usersShow)
-// 	.patch(usersController.usersUpdate)
-// 	.delete(usersController.usersDelete);
-
-// router.route('/category/:category')
-// 	.get(postsController.categoryShow);
-
-// router.route('/language/:language')
-// 	.get(postsController.languageShow);
-
-// router.route('/:postid/like')
-// 	.get(postsController.likePost);
-
-// router.route('/:postid/dislike')
-// 	.get(postsController.dislikePost);
 
 module.exports = router;

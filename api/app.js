@@ -1,6 +1,6 @@
 
 var express        = require('express');
-var ejsLayouts     = require('express-ejs-layouts')
+//var ejsLayouts     = require('express-ejs-layouts')
 var cors           = require('cors');
 var path           = require('path');
 var morgan         = require('morgan');
@@ -14,20 +14,19 @@ var expressJWT     = require('express-jwt');
 var app            = express();
 
 var config = require('./config/config');
-var Patient = require('./models/patient');
+var User = require('./models/user');
 //var Post = require('./models/post');
 //var secret = require('./config/config').secret;
 
 //mongoose database setup
 mongoose.connect(config.database);
-//
-//require passport
-require('./config/passport')(passport);
+//console.log(config.database)  // is printing
+
 
 //set view engine and define view directory 
-app.set('view engine', 'ejs')
-app.use(ejsLayouts)
-app.set('views', './views')
+// app.set('view engine', 'ejs')
+// app.use(ejsLayouts)
+// app.set('views', './views')
 
 //method override
 app.use(methodOverride(function(req, res){
@@ -44,6 +43,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(cors());
+//require passport
+require('./config/passport')(passport);
 app.use(passport.initialize());
 
 // error handling middleware
@@ -79,9 +80,7 @@ app.use("/", routes); */
 // });
 
 //routes
- var routes = require('./config/routes');
-  app.use("/", routes); 
-
-
+ var routes = require(__dirname + '/config/routes');
+  app.use(routes); 
 
 app.listen(3000);

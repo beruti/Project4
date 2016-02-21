@@ -1,6 +1,6 @@
 
 //AI
-var Patient = require('../models/patient');
+var User = require('../models/user');
 
 // function getAll(request, response){
 //   User.find({}, function(err, users) {
@@ -11,7 +11,7 @@ var Patient = require('../models/patient');
 // }
 
 //////////////////////////////////////////
-function patientSignUp(req, res){
+function userSignUpForm(req, res){
 	res.render('signup.html');
 };
 
@@ -87,17 +87,10 @@ function patientSignUp(req, res){
 module.exports = {	
 	//------------------user CRUD--------------------
 	//getAll : getAll,
-	patientSignUp : patientSignUp,
+	userSignUpForm: userSignUpForm
 	//createUser: createUser,
 	// userUpdate: userUpdate,
 	// userShow:   userShow,
 	// editUser: editUser,
 	// userDelete: userDelete
-	//--------passport authentication methods -------
-	//getLogin: getLogin,
-	//postLogin: postLogin ,
-	//getSignup: getSignup,
-	//postSignup: postSignup,
-	//getLogout: getLogout,
-	//getSecret: getSecret
 };
