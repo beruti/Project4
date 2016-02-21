@@ -85,7 +85,7 @@ function register(req, res, next) {
     console.log("authenticated")
     // User has authenticated so issue token 
     var token = jwt.sign(user, secret, { expiresIn: 60*60*24 });
-    
+    console.log(token)
     // Send back the token to the front-end to store
     return res.status(200).json({ 
       success: true,
@@ -93,8 +93,9 @@ function register(req, res, next) {
       token: token,
       user: user
     });
+    //console.log("this is the user fssdfsdfsd " +user)
 
-    return res.render('index', { token: token, user: user });
+    //return res.render('index', { token: token, user: user });
 
   });
 

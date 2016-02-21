@@ -57,7 +57,9 @@ DECISION MADE - NO DISPATCHER
 
 WHATS NEXT
 When they login they should be taken to a new page
+- done
 Get it so they can add all relevant info
+- 
 Show Log Out - make sure it removes token
 Get CRUD Actions working for user
 
@@ -74,8 +76,30 @@ THIS fixed it
 BUT now it is not routing correctly as I want it to head to elsewhere - specifically patient/landingpage
 cannot reach there using location.href for somereason
 check with a console log it is even hitting this area of the code or skipping entirely
+- was being written in a temporary file (not right place)
 
-NOW have redirect working
+NOW have a redirect working
+
+
+Get it so they can add all relevant info
+- expand form
+- expand model to accomodate
+- bring up on landing page to check all is there
+- where is this information going though - where is it being stored? check mongo
+- is NOT storing in mongo currently
+
+What is happening - instantiate an object User 
+User should be passed all the information with which it is made
+- this is specified in passport? 
+--> it seems this is where the User object is instantiated and then assigned key value pairs from form
+
+Cannot do that as PASSPORT will not let you as authentication is far more complicated than it is letting on and therefore it wont allow you to do anything other than what they specify 
+- so where to add!
+- look to completed project for answer!! (accept it isnt properly working on github!)
+
+
+
+
 
 - ticketing form
 

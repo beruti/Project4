@@ -7,11 +7,11 @@ var userSchema = mongoose.Schema({
 	// lastName: {type: String},
 	//patientName: {type: String},
 	email: {type: String},
-	//age: Number,
+	age: Number,
 	// will need to add logic to keep updating their age
 	// current data, age - deduce dob 
 	// increment based on year
-	//bloodtype : String,
+	bloodtype : String,
 	//conditions: String,
 	//medications: String,
 	//residence: String,	
