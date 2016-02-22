@@ -14,5 +14,11 @@ router.post('/register', authenticationsController.register);
 router.route('/')
 	.get(usersController.userSignUpForm) 
 
+// router.route('/profile')
+// 	.get(usersController.test)
 
+router.route('/profile/:userid')
+	.post(usersController.userUpdate)
+	.get(usersController.userShow)
+	
 module.exports = router;
