@@ -72,6 +72,26 @@ function userSignUpForm(req, res){
 
 // 	});
 // }
+//update user
+function usersUpdate(req, res) {
+  User.findById({_id: req.params.userid}, function(err, user) {
+    if (err) return res.status(500).json({message: "Error"});
+    if (!user) return res.status(404).json({message: "User does not exist."});
+
+    if (req.body.username) user.local.username = req.body.username;
+    if (req.body.firstName) user.local.firstName = req.body.firstName;
+    if (req.body.lastName) user.local.lastName = req.body.lastName;
+    if (req.body.email) user.local.email = req.body.email;
+    if (req.body.image) user.image = req.body.image;
+    if (req.body.bio) user.bio = req.body.bio;
+
+    user.save(function(err, updatedUser) {
+      if (err) return res.status(500).json({message: "Error"});
+      res.status(201).json({message: "User updated", user: updatedUser});
+    
+    });
+  });
+}
 // //////////////////////////////////////////////////
 // // DELETE
 // function userDelete(req, res) {
