@@ -2,7 +2,7 @@ var express = require('express'),
     router  = express.Router();
 
 var usersController = require('../controllers/usersController');
-var projectsController = require('../controllers/projectsController');
+var contactsController = require('../controllers/contactsController');
 var authenticationsController = require('../controllers/authenticationsController');
 
 router.post('/login', authenticationsController.login);
@@ -20,13 +20,13 @@ router.route('/users/:id')
   .patch(usersController.usersUpdate)
   .delete(usersController.usersDelete)
 
-router.route('/projects')
-  .get(projectsController.projectsIndex)
-  .post(projectsController.projectsCreate)
+router.route('/contacts')
+  .get(contactsController.contactsIndex)
+  .post(contactsController.contactsCreate)
 
-router.route('/projects/:id') 
-  .get(projectsController.projectsShow)
-  .patch(projectsController.projectsUpdate)
-  .delete(projectsController.projectsDelete)
+router.route('/contacts/:id') 
+  .get(contactsController.contactsShow)
+  .patch(contactsController.contactsUpdate)
+  .delete(contactsController.contactsDelete)
 
 module.exports = router;

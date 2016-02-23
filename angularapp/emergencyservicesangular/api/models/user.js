@@ -13,8 +13,8 @@ var userSchema = mongoose.Schema({
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true }
   },
-  // associate projects model with user model
-  projects: [{ type: mongoose.Schema.ObjectId, ref: 'Project' }]
+  // associate contacts model with user model
+  contacts: [{ type: mongoose.Schema.ObjectId, ref: 'Contact' }]
 });
 
 // using bcrypt to authenticate
