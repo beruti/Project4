@@ -1,5 +1,6 @@
 //THIS IS THE MIDDLEWARE FILE - every response and request is run through this file
 
+//----------NPMS
 // node framework 
 var express        = require('express');
 // cross origin resource sharing - makes use of localStorage and thus may be necessary for jwt as token is stored here
@@ -31,19 +32,7 @@ var http           = require('http').createServer(app);
 //On the server-side, Socket.IO works by adding event listeners to an instance of http.Server
 var io             = require('socket.io').listen(http);
 
-
-//var http = require('http')
-//ERROR
-//Error: You are trying to attach socket.io to an express request handler function. Please pass a http.Server instance
-
-// http server installed globally
-// still says http is not defined
-// listener must be a function
-//// INCOMPREHENSIBLE 
-////var server = (http.createServer(8080));
-//var io = require('socket.io')(app);
-//// using variables abstracted to config file
-
+// ------------INTERNAL
 
 var config         = require('./config/config');
 // using model that is abstracted in models folder
@@ -58,6 +47,13 @@ mongoose.connect(config.database);
 
 // requiring passport
 require('./config/passport')(passport);
+
+//socket connection
+//io.on(‘connection’, function(socket){
+
+// console.log("user connected "+ socket.id)
+// console.log(socket)
+// }
 
 // use methodOvveride as middleware
 app.use(methodOverride(function(req, res){
@@ -87,16 +83,17 @@ app.use(passport.initialize());
 //set port up
 app.set('port', process.env.PORT || 3000);
 
+//--------RESTRICTING ROUTES BASED ON JWT
 // restrict all routes to require a jwt token except for login and register which the user is allowed to post to to sign up/login
-app.use('/api', expressJWT({ secret: secret })
-  .unless({
-    path: [
-      // { url: '/login', methods: ['POST'] },
-      // { url: '/register', methods: ['POST'] },
-      { url: '/api/login', methods: ['POST'] },
-      { url: '/api/register', methods: ['POST'] }
-    ]
-  }));
+// app.use('/api', expressJWT({ secret: secret })
+//   .unless({
+//     path: [
+//       // { url: '/login', methods: ['POST'] },
+//       // { url: '/register', methods: ['POST'] },
+//       { url: '/api/login', methods: ['POST'] },
+//       { url: '/api/register', methods: ['POST'] }
+//     ]
+//   }));
 
 // error handling middleware - will give error object if error occurs
 app.use(function (err, req, res, next) {
@@ -114,38 +111,47 @@ var routes = require('./config/routes');
 // use api on the front of all routes
 app.use("/api", routes);
 
+// send the element hello world in h1 header tag
+app.get('/', function(request,response){
+  // we could write ALL of our html in here if we wanted 
+  // but better to abstract into an external html file
+  //response.send('<h1>Hello world</h1>');
+  //REFACTOR
+  // send all html from file path below
+  response.sendFile(__dirname + '../front-end/js/views/home.html');
+})
 
-// error handlers
+// listen on the connection event for incoming sockets
+// in the event of such - console.log the event
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+     console.log('user disconnected');
+   });
+});
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
+// on receiving 'chat message' console.log what client has written
+io.on('connection', function(socket){
+  // on chat message event execute callback function thats argument inherits all that is sent it chat message object
+  // this is defined in front end
+  socket.on('chat message', function(msg){
+    console.log('message: '+ msg);
+    io.emit('chat message', msg);
   });
 });
-  
-// this directory/models directory and get socket - i just emptied it though
-require('./models/socket')(io)
+// The next goal is for us to emit the event from the server to the rest of the users.
+// In order to send an event to everyone, Socket.IO gives us the io.emit:
+
+
+// listen to port 3000 for app running
+// callback to say if this is true then console.log
+// http.listen(3000, function(){
+//   console.log('listening on •:3000');
+// })
+
 
 http.listen(app.get('port'), function() {
   console.log('Http server listening on http://localhost:' + app.get('port'));
 });
 
-// app.listen(80);
-//app.listen(3000);
 
