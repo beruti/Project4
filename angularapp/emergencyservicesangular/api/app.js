@@ -26,11 +26,6 @@ var expressJWT     = require('express-jwt');
 // app variable to inherit express framework
 var app = express();
 // used to store authenticated and encrypted user and grant access to certain areas of site that require a jwt
-//create simple http server
-var http           = require('http').createServer(app);
-//connect sockets and instruct to listen to http server
-//On the server-side, Socket.IO works by adding event listeners to an instance of http.Server
-var io             = require('socket.io').listen(http);
 
 // ------------INTERNAL
 
@@ -47,13 +42,6 @@ mongoose.connect(config.database);
 
 // requiring passport
 require('./config/passport')(passport);
-
-//socket connection
-//io.on(‘connection’, function(socket){
-
-// console.log("user connected "+ socket.id)
-// console.log(socket)
-// }
 
 // use methodOvveride as middleware
 app.use(methodOverride(function(req, res){
@@ -121,37 +109,6 @@ app.get('/', function(request,response){
   response.sendFile(__dirname + '../front-end/js/views/home.html');
 })
 
-// listen on the connection event for incoming sockets
-// in the event of such - console.log the event
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-     console.log('user disconnected');
-   });
-});
-
-// on receiving 'chat message' console.log what client has written
-io.on('connection', function(socket){
-  // on chat message event execute callback function thats argument inherits all that is sent it chat message object
-  // this is defined in front end
-  socket.on('chat message', function(msg){
-    console.log('message: '+ msg);
-    io.emit('chat message', msg);
-  });
-});
-// The next goal is for us to emit the event from the server to the rest of the users.
-// In order to send an event to everyone, Socket.IO gives us the io.emit:
-
-
-// listen to port 3000 for app running
-// callback to say if this is true then console.log
-// http.listen(3000, function(){
-//   console.log('listening on •:3000');
-// })
-
-
-http.listen(app.get('port'), function() {
-  console.log('Http server listening on http://localhost:' + app.get('port'));
-});
+app.listen(3000)
 
 
