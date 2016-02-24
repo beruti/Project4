@@ -18,14 +18,33 @@ var passport       = require('passport');
 var cookieParser   = require("cookie-parser");
 // helps pass over get/post and expand http requests - allowing hidden methods on forms - methodOverride will interpret these hidden methods on back end
 var methodOverride = require("method-override");
-// used to store authenticated and encrypted user and grant access to certain areas of site that require a jwt
 // is passed in header of all requests
 var jwt            = require('jsonwebtoken');
 // jwt specific to the express framework
 var expressJWT     = require('express-jwt');
 // app variable to inherit express framework
-var app            = express();
-// using variables abstracted to config file
+var app = express();
+// used to store authenticated and encrypted user and grant access to certain areas of site that require a jwt
+//create simple http server
+var http           = require('http').createServer(app);
+//connect sockets and instruct to listen to http server
+//On the server-side, Socket.IO works by adding event listeners to an instance of http.Server
+var io             = require('socket.io').listen(http);
+
+
+//var http = require('http')
+//ERROR
+//Error: You are trying to attach socket.io to an express request handler function. Please pass a http.Server instance
+
+// http server installed globally
+// still says http is not defined
+// listener must be a function
+//// INCOMPREHENSIBLE 
+////var server = (http.createServer(8080));
+//var io = require('socket.io')(app);
+//// using variables abstracted to config file
+
+
 var config         = require('./config/config');
 // using model that is abstracted in models folder
 var User           = require('./models/user');
@@ -65,11 +84,15 @@ app.use(morgan('dev'));
 app.use(cors());
 // necessary to start passport technology (would need .sessions is using sessions too)
 app.use(passport.initialize());
+//set port up
+app.set('port', process.env.PORT || 3000);
 
 // restrict all routes to require a jwt token except for login and register which the user is allowed to post to to sign up/login
 app.use('/api', expressJWT({ secret: secret })
   .unless({
     path: [
+      // { url: '/login', methods: ['POST'] },
+      // { url: '/register', methods: ['POST'] },
       { url: '/api/login', methods: ['POST'] },
       { url: '/api/register', methods: ['POST'] }
     ]
@@ -88,7 +111,41 @@ app.use(function (err, req, res, next) {
 
 // include routes that are abstracted in config/routes
 var routes = require('./config/routes');
-// user api on the front of all routes
+// use api on the front of all routes
 app.use("/api", routes);
 
-app.listen(3000);
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    });
+  });
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
+});
+  
+// this directory/models directory and get socket - i just emptied it though
+require('./models/socket')(io)
+
+http.listen(app.get('port'), function() {
+  console.log('Http server listening on http://localhost:' + app.get('port'));
+});
+
+// app.listen(80);
+//app.listen(3000);
+
