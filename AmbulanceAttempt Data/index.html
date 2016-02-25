@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang='en' ng-app="CardsAgainstAssembly">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Cards Against Assembly™</title>
+        <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="css/style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/cardView.js"></script>
+        <script src="js/repeater.js"></script>
+        <script src="js/cardsController.js"></script>
+        <script src="js/playersController.js"></script>
+    </head>
+    <body>
+      <div class="container">
+        <header class='navbar'>
+          <h1 class='pull-left'>Cards Against Assembly</h1>
+          <scores></scores>
+        </header>
+
+        <section id="cards" class='container-fluid' ng-controller="cardsController as cards">
+        <repeater values="cards.valuesToRepeat"></repeater>
+          <div class='row'>
+
+            <div class='col-sm-6 col-md-6 col-lg-4' ng-repeat="cardData in cards.allCards" >
+              <cardcreator question-title="cardData.question" question-description="cardData.description" click-function="cardsController.handleClick(cardData.question)"></cardcreator>
+            </div>
+
+          </div>
+        </section>
+
+      <footer>
+        <p>Made with <span class='heart'>♥︎</span> at General Assembly</p>
+      </footer>
+      </div>
+    </body>
+</html>

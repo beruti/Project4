@@ -1,4 +1,4 @@
-// app contains all the routes
+// app contains all the ui-routes
 // app contains all the configuration and middleware
 
 angular

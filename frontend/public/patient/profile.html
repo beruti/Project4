@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" type="text/css" href="../css/style.css">
+  <!-- include jquery -->
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <!-- include jwt decode -->
+  <script type="text/javascript" src="../js/jwt-decode.min.js"></script>   
+  <!-- include auth script -->
+  <script type="text/javascript" src="../js/authentication.js"></script>
+  <script src="../js/test.js"></script> 
+</head>
+<body>
+<h1>On profile page </h1>
+
+<section id="edit-user">  
+<h2>Edit Profile</h2>
+  <form class="edit-user form-inline" method="patch" action="/profile">
+    <div class="form-group">
+      <label for="email">Email: </label>
+      <input type="email" name='email' class="current_user_email" class="form-control" placeholder="Email">
+    </div><br><br>
+    <input type="submit" value='Edit User' id="testid" class="btn btn-default">
+  </form> 
+</section>
+
+<!-- delete user -->
+<nav>
+  <ul class="dropdown-menu">
+    <li><a class="delete-profile-link logged-in" method="delete" action="/profile" href="/profile">Delete Profile</a></li>
+  </ul>
+</nav>
+
+
+</body>
+</html>
