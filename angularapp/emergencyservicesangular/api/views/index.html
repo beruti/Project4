@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Socket Example</title>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script>
+
+		var socket = io();
+
+		socket.on('received' , function(message){
+
+			$("#messages").append("<li>" + message + "</li>");
+			console.log(message)
+
+			// hey angular i've changed something and you don't about it
+			// please update everything
+			$scope.$apply();
+
+		});
+
+		getLocation();
+
+		
+		function getLocation() {
+		    if (navigator.geolocation) {
+		        navigator.geolocation.getCurrentPosition(joinRoom);
+		    } else {
+		        x.innerHTML = "Geolocation is not supported by this browser.";
+		    }
+		}
+		function joinRoom(position) {
+		    var x = Math.round(position.coords.latitude * 10000) / 10000; 
+		    var y = Math.round(position.coords.longitude * 10000) / 10000;
+			var room = String(x)+String(y);
+			socket.emit('join-room' , room);	
+		}
+
+		$(function(){
+
+			$("#message-form").submit(function(event){
+
+				event.preventDefault();
+
+				var message = $("#message-input").val();
+
+				socket.emit('message' , message);
+
+			});
+
+		})
+
+	</script>
+
+
+
+
+</head>
+<body>
+<h1>Type below</h1>
+<form id="message-form" action="">
+	<textarea id="message-input"></textarea>
+	<input type="submit" value="Send Message"/>
+</form>
+
+<ul id="messages">
+
+</ul>
+
+</body>
+</html>

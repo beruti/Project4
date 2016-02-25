@@ -1,0 +1,20 @@
+*{
+	color: blue;
+	background-color: #F5EDE3;
+}
+
+#logo{
+	border: 2px solid black;
+	height: 15%;
+	width: 15%;
+	display: inline-block;
+	padding: 1%;
+	margin-top: 3%;
+	position: static;
+}
+
+body{
+	/* so sticky nav bar doesnt overlay start of text*/
+	padding-top: 50px;
+}
+

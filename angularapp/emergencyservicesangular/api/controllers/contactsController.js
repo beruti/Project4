@@ -9,6 +9,8 @@ function contactsIndex(req, res){
 }
 
 function contactsCreate(req, res){
+  console.log("contactsCreate being hit")
+  console.log(req.body.contact)
   var contact = new Contact(req.body.contact);
 
   contact.save(function(err){
@@ -28,6 +30,7 @@ function contactsShow(req, res){
     if (err) return res.status(500).send(err);
     if (!contact) return res.status(404).send(err);
     res.status(200).send(contact);
+    console.log(contact)
   });
 }
 
