@@ -28,11 +28,10 @@ var app = express();
 // used to store authenticated and encrypted user and grant access to certain areas of site that require a jwt
 var port        = process.env.PORT || 3000;
 
-//var http        = require('http').createServer(app)
-// var io          = require('socket.io')(http);
+var http        = require('http').createServer(app)
+var io          = require('socket.io')(http);
 //
-
-
+//
 // ------------INTERNAL
 
 var config         = require('./config/config');
@@ -79,6 +78,27 @@ mongoose.connect(config.database);
  //   // })
 
  // });
+// all connected
+io.on('connection', function(socket){
+  // is now listening for connection event
+  //on connection event call function that takes socket as argument
+  console.log("new socket connected")
+  //trying to join chatroom - how to check - docs
+  //socket.join("chatroom");
+
+  socket.on('message' , function(message){
+    console.log("message heard")
+    console.log(message)
+
+    io.emit('received', message)
+
+  });
+
+  // socket.on('join-room', function(room){
+  //   socket.join(room)
+  //   console.log("this is the socket "+ room)
+  // } )
+})
 
 // requiring passport
 require('./config/passport')(passport);
@@ -114,16 +134,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('port', process.env.PORT || 3000);
 
 //--------RESTRICTING ROUTES BASED ON JWT
-// restrict all routes to require a jwt token except for login and register which the user is allowed to post to to sign up/login
-// app.use('/api', expressJWT({ secret: secret })
-//   .unless({
-//     path: [
-//       // { url: '/login', methods: ['POST'] },
-//       // { url: '/register', methods: ['POST'] },
-//       { url: '/api/login', methods: ['POST'] },
-//       { url: '/api/register', methods: ['POST'] }
-//     ]
-//   }));
+//restrict all routes to require a jwt token except for login and register which the user is allowed to post to to sign up/login
+app.use('/api', expressJWT({ secret: secret })
+  .unless({
+    path: [
+      // { url: '/login', methods: ['POST'] },
+      // { url: '/register', methods: ['POST'] },
+      { url: '/api/login', methods: ['POST'] },
+      { url: '/api/register', methods: ['POST'] }
+    ]
+  }));
 
 // error handling middleware - will give error object if error occurs
 app.use(function (err, req, res, next) {
@@ -151,11 +171,11 @@ app.use("/api", routes);
 //   response.sendFile(__dirname + '../front-end/js/views/home.html');
 // })
 
-app.listen(3000)
+//app.listen(3000)
 
 
 
-// http.listen(port)
-// console.log('Server started on port ' + port + '…')
+ http.listen(port)
+ console.log('Server started on port ' + port + '…')
 
 

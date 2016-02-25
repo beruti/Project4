@@ -70,7 +70,7 @@ function UsersController(User, TokenService, $state, CurrentUser, myLocation){
     self.error = null;
     User.login(self.user, handleLogin, handleError);
     //load_socket()
-    socket.emit('join game')
+    //socket.emit('join game')
   }
 
   function logout() {
@@ -150,6 +150,9 @@ function UsersController(User, TokenService, $state, CurrentUser, myLocation){
   // socket.on('hellofromserverside', function(msg){
   //    $('#messages').append($('<li>').text(msg));
   //  });
+  //socket.
+
+  //attach $scope.apply whenever you emit an event
 
   return self;
 }

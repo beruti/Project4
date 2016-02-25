@@ -27,10 +27,10 @@
 // using Factory instead
 
 angular
-  .module('logger')
-  .factory('socket', connectToSocket);
+  .module('logging')
+  .factory('socket', socket);
 
-function connectToSocket(){
+function socket(){
   var socket = io();
 
   return socket;

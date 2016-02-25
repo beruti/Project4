@@ -3,13 +3,19 @@ angular
   .controller('ContactsController', ContactsController);
 
 ContactsController.$inject = ["Contact", "User", "$state", "CurrentUser"];
+//ContactsController.$inject = ["Contact", "User", "$state", "CurrentUser", '$scope', 'socket'];
+//function ContactsController(Contact, User, $state, CurrentUser, $scope, socket){
 function ContactsController(Contact, User, $state, CurrentUser){
+  //console.log("contacts controller")
   var self = this;
 
   self.all      = [];
   self.users    = [];
   self.contact  = {};
   self.userContacts = {};
+  //self.message = {como: estas}
+  //var message = {como: estas}
+  //socket.emit("message")
 
   self.getContacts = function(){
     Contact.query(function(data){
@@ -28,7 +34,13 @@ function ContactsController(Contact, User, $state, CurrentUser){
       // used populate in back end and association in model
       // gives an array of data so have to make logic and cycle over in the view of angular app
       // self.userContacts is in the view
-
+       //var socket = io();
+       //var message = "hello";
+       //socket.emit("message")
+      // socket.on('received', function(message){
+      //   console.log("socketmessage")
+      // })
+      //$scope.$apply()
     })
   }
 
@@ -59,5 +71,5 @@ function ContactsController(Contact, User, $state, CurrentUser){
 
   self.getUserContacts();
   self.getUsers();
-  //dont explicitly return self
+  //dont need to explicitly return self as is done automatically
 }

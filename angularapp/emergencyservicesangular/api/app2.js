@@ -90,31 +90,38 @@ app.use(function (err, req, res, next) {
   next();
 });
 
+/////----------------socket
+// this should not matter for sockets as long as you include script in the correct place
+
 app.get('/' , function(req, res , err){
 
   res.sendfile('views/index.html');
 
 });
 
-
+// on io room connection event, call function that takes usersocket
 io.on('connection' , function(usersocket){
 
     console.log('new usersocket connected');
 
+    // join a room called bob
     usersocket.join('bob');
 
+    // on receiving a message event call a function that takes a message, function will emit an event called received that will send back the message
     usersocket.on('message' , function(message){
 
       io.emit('received', message)
 
 
     });
+    //on join room event, call function that makes user join room that they have specialised by geolocation
+    // console.log the room also
     usersocket.on('join-room', function(room){
       usersocket.join(room)
       console.log(room)
     } )
 })
-
+//---------------------------------
 
 
 
