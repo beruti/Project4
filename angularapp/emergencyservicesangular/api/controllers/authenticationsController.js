@@ -17,7 +17,7 @@ function register(req, res, next) {
       success: true,
       message: "Thank you for authenticating",
       token: token,
-      user: user
+      user: User
     });
   });
 
